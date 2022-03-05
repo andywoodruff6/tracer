@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { StakeTable } from "../Components/StakeTable";
-import { adaPriceFeed } from "../Assets/ada-price-feed";
+import { StakeTable } from "../Components/StakingRewards/StakeTable";
+import { epochDatePrice } from "../Assets/epoch-date-price";
 export const Home = () => {
   const axios = require("axios");
   const baseURL = "https://cardano-mainnet.blockfrost.io/api/v0/";
@@ -9,7 +9,8 @@ export const Home = () => {
   const [stakeRewards, setStakeRewards] = useState("");
   const [value, setValue] = useState([]);
   const [pool, setPool] = useState([]);
-  const [dateFeed, setDateFeed] = useState([]);
+  // const [dateFeed, setDateFeed] = useState([]);
+  const [formattedDate, setFormattedDate] = useState([]);
 
   const getStakeAddress = async (address) => {
     try {
@@ -49,54 +50,21 @@ export const Home = () => {
       console.log("getStakeRewards error: ", error);
     }
   };
-  const dateDate = () => {
-    for (let i = 0; i < adaPriceFeed.length; i++) {
-      adaPriceFeed[i].time_open = new Date(adaPriceFeed[i].time_open);
-      adaPriceFeed[i].time_open = adaPriceFeed[i].time_open
-        .toString()
-        .slice(0, 10);
-      setDateFeed((prevState) => [...prevState, adaPriceFeed[i].time_open]);
-    }
-  };
 
   const data = async () => {
-    let valueAda = 0;
     for (let i = 0; i < stakeRewards.length; i++) {
-      const epoch = stakeRewards[i].epoch;
       const amount = Number(stakeRewards[i].amount);
       const amountInAda = amount / 10 ** 6;
-      let url;
-      url = baseURL + "epochs/" + epoch;
-      let epochTime;
-      try {
-        epochTime = await axios({
-          method: "get",
-          url: url,
-          headers: {
-            project_id: "mainnetz6y93S2GgrHBwooKwhOVCU1DZ4c8HRG4",
-          },
-        });
-      } catch (error) {
-        console.log("epochTime error: ", error);
-      }
 
-      const date = new Date(epochTime.data.start_time * 1000);
+      const date = new Date(epochDatePrice[i].unixDate * 1000);
       let formattedDate = date.toString().slice(0, 10);
-      for (let j = 0; j < 365; j++) {
-        if (formattedDate === dateFeed[j]) {
-          valueAda = amountInAda * adaPriceFeed[j].price_open;
-          valueAda = Math.round(valueAda * 100) / 100;
-          setValue((value) => [...value, valueAda]);
-        }
-      }
+      setFormattedDate((prevState) => [...prevState, formattedDate]);
+      let priceOnDateI = epochDatePrice[i].value;
+      let valueAda = Math.round(amountInAda * priceOnDateI * 100) / 100;
+      // console.log("value ada: ", valueAda);
+      // console.log("formattedDate: ", formattedDate);
+      setValue((prevState) => [...prevState, valueAda]);
     }
-    // for (let i = 0; i < value.length; i++) {
-    //   const ada = stakeRewards[i].amount / 10 ** 6;
-    //   let answer = ada / value[i];
-    //   answer = Math.round(answer * 100) / 100;
-    //   setPricePerCoin((prevState) => [...prevState, answer]);
-    // }
-    // console.log(stakeRewards);
   };
 
   const getPoolTicker = async () => {
@@ -104,7 +72,7 @@ export const Home = () => {
     let poolTicker;
     for (let i = 1; i < stakeRewards.length; i++) {
       if (i === 1 || stakeRewards[i].pool !== stakeRewards[i - 1].pool) {
-        const poolFull = stakeRewards[i].pool_id;
+        const poolFull = stakeRewards[i - 1].pool_id;
         let url = baseURL + "pools/" + poolFull.toString() + "/metadata";
         try {
           poolResults = await axios({
@@ -127,7 +95,7 @@ export const Home = () => {
 
   useEffect(() => {
     getStakeAddress("");
-    dateDate();
+    // dateDate();
   }, []);
   useEffect(() => {
     data();
@@ -185,7 +153,7 @@ export const Home = () => {
           stakeRewards={stakeRewards}
           value={value}
           pool={pool}
-          // pricePerCoin={pricePerCoin}
+          formattedDate={formattedDate}
         />
       </div>
     </div>
