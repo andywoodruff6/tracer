@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { StakeTable } from "../Components/StakingRewards/StakeTable";
 import { BarGraph } from "../Components/StakingRewards/BarGraph";
 import { epochDatePrice } from "../Assets/epoch-date-price";
+
 export const Home = () => {
   const axios = require("axios");
   const baseURL = "https://cardano-mainnet.blockfrost.io/api/v0/";
@@ -22,10 +23,9 @@ export const Home = () => {
         method: "get",
         url: url,
         headers: {
-          project_id: "mainnetz6y93S2GgrHBwooKwhOVCU1DZ4c8HRG4",
+          project_id: process.env.REACT_APP_BLOCKFROST_API_KEY,
         },
       });
-      // console.log(response.data);
       const stakeAddress = response.data.stake_address;
       setStakeAddress(stakeAddress);
       getStakeRewards(stakeAddress);
@@ -43,10 +43,9 @@ export const Home = () => {
         method: "get",
         url: url,
         headers: {
-          project_id: "mainnetz6y93S2GgrHBwooKwhOVCU1DZ4c8HRG4",
+          project_id: process.env.REACT_APP_BLOCKFROST_API_KEY,
         },
       });
-      // console.log(results.data);
       setStakeRewards(results.data);
     } catch (error) {
       console.log("getStakeRewards error: ", error);
@@ -62,8 +61,6 @@ export const Home = () => {
       setFormattedDate((prevState) => [...prevState, formattedDate]);
       let priceOnDateI = epochDatePrice[i].value;
       let valueAda = Math.round(amountInAda * priceOnDateI * 100) / 100;
-      // console.log("value ada: ", valueAda);
-      // console.log("formattedDate: ", formattedDate);
       setValue((prevState) => [...prevState, valueAda]);
     }
   };
@@ -79,7 +76,7 @@ export const Home = () => {
             method: "get",
             url: url,
             headers: {
-              project_id: "mainnetz6y93S2GgrHBwooKwhOVCU1DZ4c8HRG4",
+              project_id: process.env.REACT_APP_BLOCKFROST_API_KEY,
             },
           });
           poolTicker = poolResults.data.ticker;
@@ -95,16 +92,10 @@ export const Home = () => {
   const getEpoch = async () => {
     for (let i = 0; i < stakeRewards.length; i++) {
       const a = stakeRewards[i].epoch;
-      //   console.log("a", a);
       setEpoch((prevState) => [...prevState, a]);
-      //   console.log("labels", labels);
     }
-    // console.log("epoch: ", epoch);
   };
 
-  useEffect(() => {
-    // getStakeAddress("");
-  }, []);
   useEffect(() => {
     data();
     getPoolTicker();
