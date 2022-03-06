@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { StakeTable } from "../Components/StakingRewards/StakeTable";
+import { BarGraph } from "../Components/StakingRewards/BarGraph";
 import { epochDatePrice } from "../Assets/epoch-date-price";
 export const Home = () => {
   const axios = require("axios");
@@ -9,8 +10,9 @@ export const Home = () => {
   const [stakeRewards, setStakeRewards] = useState("");
   const [value, setValue] = useState([]);
   const [pool, setPool] = useState([]);
-  // const [dateFeed, setDateFeed] = useState([]);
+  const [ada, setAda] = useState([]);
   const [formattedDate, setFormattedDate] = useState([]);
+  const [epoch, setEpoch] = useState([]);
 
   const getStakeAddress = async (address) => {
     try {
@@ -50,12 +52,11 @@ export const Home = () => {
       console.log("getStakeRewards error: ", error);
     }
   };
-
   const data = async () => {
     for (let i = 0; i < stakeRewards.length; i++) {
-      const amount = Number(stakeRewards[i].amount);
+      const amount = stakeRewards[i].amount;
       const amountInAda = amount / 10 ** 6;
-
+      setAda((prevState) => [...prevState, amountInAda]);
       const date = new Date(epochDatePrice[i].unixDate * 1000);
       let formattedDate = date.toString().slice(0, 10);
       setFormattedDate((prevState) => [...prevState, formattedDate]);
@@ -66,7 +67,6 @@ export const Home = () => {
       setValue((prevState) => [...prevState, valueAda]);
     }
   };
-
   const getPoolTicker = async () => {
     let poolResults;
     let poolTicker;
@@ -92,14 +92,23 @@ export const Home = () => {
       }
     }
   };
+  const getEpoch = async () => {
+    for (let i = 0; i < stakeRewards.length; i++) {
+      const a = stakeRewards[i].epoch;
+      //   console.log("a", a);
+      setEpoch((prevState) => [...prevState, a]);
+      //   console.log("labels", labels);
+    }
+    // console.log("epoch: ", epoch);
+  };
 
   useEffect(() => {
-    getStakeAddress("");
-    // dateDate();
+    // getStakeAddress("");
   }, []);
   useEffect(() => {
     data();
     getPoolTicker();
+    getEpoch();
   }, [stakeRewards]);
 
   return (
@@ -133,9 +142,7 @@ export const Home = () => {
           </div>
         </div>
         {/* Bar Graph */}
-        <div className="flex border border-red-500 p-24 items-center ml-10 mx-6 my-2">
-          Bar Graph Goes Here
-        </div>
+        <BarGraph ada={ada} epoch={epoch} />
       </div>
       {/* Viewing Panels */}
       <div className="block justify-center text-center ">
