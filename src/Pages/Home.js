@@ -8,7 +8,7 @@ export const Home = () => {
   const baseURL = "https://cardano-mainnet.blockfrost.io/api/v0/";
   const [address, setAddress] = useState();
   const [stakeAddress, setStakeAddress] = useState();
-  const [stakeRewards, setStakeRewards] = useState("");
+  const [stakeRewards, setStakeRewards] = useState('');
   const [value, setValue] = useState([]);
   const [pool, setPool] = useState([]);
   const [ada, setAda] = useState([]);

@@ -19,18 +19,6 @@ export const StakeTable = ({ stakeRewards, value, pool, formattedDate }) => {
       <td className="border border-black p-1 text-center">{pool[key]}</td>
     </tr>
   ));
-
-  const blankTable = (
-    <tr>
-      <td className="border border-black">Epoch</td>
-      <td className="border border-black">Date</td>
-      <td className="border border-black">Amount of Lovelace</td>
-      <td className="border border-black">Pool</td>
-      <td className="border border-black">Price per Coin</td>
-      <td className="border border-black">Value</td>
-    </tr>
-  );
-
   return (
     <div className="border border-red-500">
       <table className="table-fixed border border-collapse">
@@ -38,13 +26,13 @@ export const StakeTable = ({ stakeRewards, value, pool, formattedDate }) => {
           <tr>
             <th className="border border-black p-1">Epoch</th>
             <th className="border border-black p-1">Date</th>
-            <th className="border border-black p-1 px-6">Amount of Lovelace</th>
-            <th className="border border-black p-1">Price per Coin</th>
-            <th className="border border-black p-1">Value</th>
-            <th className="border border-black p-1">Pool</th>
+            <th className="border border-black p-1 px-6">Amount (Lovelace)</th>
+            <th className="border border-black p-1">Price / Coin</th>
+            <th className="border border-black p-1">Value (USD)</th>
+            <th className="border border-black p-1">Pool Ticker</th>
           </tr>
         </thead>
-        <tbody>{stakeRewards !== null ? plotTable : blankTable}</tbody>
+        <tbody>plotTable</tbody>
       </table>
     </div>
   );
