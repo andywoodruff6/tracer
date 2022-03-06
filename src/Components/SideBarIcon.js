@@ -1,5 +1,3 @@
-import React from "react";
-
 export const SideBarIcon = ({ icon }) => (
   <div className="sidebar-icon group">
     {icon}

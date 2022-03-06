@@ -104,12 +104,12 @@ export const Home = () => {
 
   return (
     <div className="block justify-center">
-      <div className="text-xl mt-10 border border-red-500 flex justify-center">
+      <div className="text-xl mt-10 border flex justify-center">
         ADA - TRACER
       </div>
       <div className="flex justify-between">
         {/* Inputs */}
-        <div className="border border-red-500 p-6 mx-6 my-2">
+        <div className="border  p-6 mx-6 my-2">
           <div className="flex justify-center">Address</div>
           <div>
             <input

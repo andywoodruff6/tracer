@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { epochDatePrice } from "../../Assets/epoch-date-price";
 export const StakeTable = ({ stakeRewards, value, pool, formattedDate }) => {
   const plotTable = Object.keys(stakeRewards).map((key) => (
@@ -32,20 +31,18 @@ export const StakeTable = ({ stakeRewards, value, pool, formattedDate }) => {
   );
 
   return (
-    <div className="border border-red-500">
-      <table className="table-fixed border border-collapse">
-        <thead>
-          <tr>
-            <th className="border border-black p-1">Epoch</th>
-            <th className="border border-black p-1">Date</th>
-            <th className="border border-black p-1 px-6">Amount of Lovelace</th>
-            <th className="border border-black p-1">Price per Coin</th>
-            <th className="border border-black p-1">Value</th>
-            <th className="border border-black p-1">Pool</th>
-          </tr>
-        </thead>
-        <tbody>{stakeRewards !== null ? plotTable : blankTable}</tbody>
-      </table>
-    </div>
+    <table className="table-fixed border border-collapse">
+      <thead>
+        <tr>
+          <th className="border border-black p-1">Epoch</th>
+          <th className="border border-black p-1">Date</th>
+          <th className="border border-black p-1 px-6">Amount of Lovelace</th>
+          <th className="border border-black p-1">Price per Coin</th>
+          <th className="border border-black p-1">Value</th>
+          <th className="border border-black p-1">Pool</th>
+        </tr>
+      </thead>
+      <tbody>{stakeRewards !== null ? plotTable : blankTable}</tbody>
+    </table>
   );
 };
