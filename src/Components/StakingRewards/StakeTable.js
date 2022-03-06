@@ -3,12 +3,20 @@ import { epochDatePrice } from "../../Assets/epoch-date-price";
 export const StakeTable = ({ stakeRewards, value, pool, formattedDate }) => {
   const plotTable = Object.keys(stakeRewards).map((key) => (
     <tr key={key}>
-      <td className="border border-black p-1">{stakeRewards[key].epoch}</td>
-      <td className="border border-black p-1">{formattedDate[key]}</td>
-      <td className="border border-black p-1">{stakeRewards[key].amount}</td>
-      <td className="border border-black p-1">{epochDatePrice[key].value}</td>
-      <td className="border border-black p-1">{value[key]}</td>
-      <td className="border border-black p-1">{pool[key]}</td>
+      <td className="border border-black p-1 text-center">
+        {stakeRewards[key].epoch}
+      </td>
+      <td className="border border-black p-1 text-center">
+        {formattedDate[key]}
+      </td>
+      <td className="border border-black p-1 text-center">
+        {stakeRewards[key].amount}
+      </td>
+      <td className="border border-black p-1 text-center">
+        {epochDatePrice[key].value}
+      </td>
+      <td className="border border-black p-1 text-center">{value[key]}</td>
+      <td className="border border-black p-1 text-center">{pool[key]}</td>
     </tr>
   ));
 
