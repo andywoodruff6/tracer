@@ -13,16 +13,11 @@ export const BarGraph = ({ ada, epoch }) => {
       },
     ],
   };
-  const options = {
-    plugins: {
-      title: { display: true, text: "Cool" },
-    },
-  };
 
   return (
     <div className="w-[600px]">
       {epoch.length >= 1 ? (
-        <Bar data={data} options={options} redraw={true} />
+        <Bar data={data} />
       ) : (
         <div className="text-center pt-20 ">
           Bar Chart Displays After an Address is Selected
