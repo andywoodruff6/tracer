@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { epochDatePrice } from "../../Assets/epoch-date-price";
 export const StakeTable = ({ stakeRewards, value, pool, formattedDate }) => {
   const plotTable = Object.keys(stakeRewards).map((key) => (

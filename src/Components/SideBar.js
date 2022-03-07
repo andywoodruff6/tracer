@@ -1,4 +1,3 @@
-import React from "react";
 import { SideBarIcon } from "./SideBarIcon";
 import { FaFire } from "react-icons/fa";
 
