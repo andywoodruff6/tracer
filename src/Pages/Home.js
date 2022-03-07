@@ -56,11 +56,22 @@ export const Home = () => {
       const amount = stakeRewards[i].amount;
       const amountInAda = amount / 10 ** 6;
       setAda((prevState) => [...prevState, amountInAda]);
-      const date = new Date(epochDatePrice[i].unixDate * 1000);
+    }
+  };
+  const getFormattedDate = () => {
+    for (let i = 0; i < stakeRewards.length; i++) {
+      const a = stakeRewards[i].epoch - 1;
+      console.log("a", a);
+      const date = new Date(epochDatePrice[a].unixDate * 1000);
       let formattedDate = date.toString().slice(0, 10);
       setFormattedDate((prevState) => [...prevState, formattedDate]);
-      let priceOnDateI = epochDatePrice[i].value;
-      let valueAda = Math.round(amountInAda * priceOnDateI * 100) / 100;
+    }
+  };
+  const getValue = () => {
+    for (let i = 0; i < stakeRewards.length; i++) {
+      const a = stakeRewards[i].epoch - 1;
+      let priceOnDateI = epochDatePrice[a].value;
+      let valueAda = Math.round(ada[i] * priceOnDateI * 100) / 100;
       setValue((prevState) => [...prevState, valueAda]);
     }
   };
@@ -98,6 +109,8 @@ export const Home = () => {
 
   useEffect(() => {
     data();
+    getFormattedDate();
+    getValue();
     getPoolTicker();
     getEpoch();
   }, [stakeRewards]);
