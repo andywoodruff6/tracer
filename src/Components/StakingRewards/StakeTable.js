@@ -32,7 +32,7 @@ export const StakeTable = ({ stakeRewards, value, pool, formattedDate }) => {
             <th className="border border-black p-1">Pool Ticker</th>
           </tr>
         </thead>
-        <tbody>plotTable</tbody>
+        <tbody>{plotTable}</tbody>
       </table>
     </div>
   );
