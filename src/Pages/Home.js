@@ -107,11 +107,11 @@ export const Home = () => {
       <div className="text-xl mt-10 border border-red-500 flex justify-center">
         ADA - TRACER
       </div>
-      <div className="flex justify-between">
+      <div className="block lg:flex lg:justify-between">
         {/* Inputs */}
         <div className="border border-red-500 p-6 mx-6 my-2">
-          <div className="flex justify-center">Address</div>
-          <div>
+          <div className="text-center">Address</div>
+          <div className="flex justify-center">
             <input
               type="text"
               className="border border-sky-900 mr-4"
@@ -120,9 +120,9 @@ export const Home = () => {
             />
             <button onClick={() => getStakeAddress(address)}>Enter</button>
           </div>
-          <div className="flex justify-center">or</div>
-          <div className="flex justify-center">Stake Address</div>
-          <div>
+          <div className="text-center">or</div>
+          <div className="text-center">Stake Address</div>
+          <div className="flex justify-center">
             <input
               type="text"
               className="border border-sky-900 mr-4"
@@ -136,7 +136,7 @@ export const Home = () => {
         <BarGraph ada={ada} epoch={epoch} />
       </div>
       {/* Viewing Panels */}
-      <div className="block justify-center text-center ">
+      <div className="block justify-center text-center max-w-4xl ">
         <p>Viewing information for:</p>
         <div className="bg-white border border-black">
           {address !== undefined ? address : "Address"}
