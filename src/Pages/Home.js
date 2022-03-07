@@ -8,7 +8,7 @@ export const Home = () => {
   const baseURL = "https://cardano-mainnet.blockfrost.io/api/v0/";
   const [address, setAddress] = useState();
   const [stakeAddress, setStakeAddress] = useState();
-  const [stakeRewards, setStakeRewards] = useState("");
+  const [stakeRewards, setStakeRewards] = useState('');
   const [value, setValue] = useState([]);
   const [pool, setPool] = useState([]);
   const [ada, setAda] = useState([]);
@@ -104,14 +104,14 @@ export const Home = () => {
 
   return (
     <div className="block justify-center">
-      <div className="text-xl mt-10 border flex justify-center">
+      <div className="text-xl mt-20 md:mt-10 flex justify-center">
         ADA - TRACER
       </div>
-      <div className="flex justify-between">
+      <div className="block lg:flex lg:justify-between">
         {/* Inputs */}
-        <div className="border  p-6 mx-6 my-2">
-          <div className="flex justify-center">Address</div>
-          <div>
+        <div className="p-6 md:mx-6 my-2">
+          <div className="text-center">Address</div>
+          <div className="flex justify-center">
             <input
               type="text"
               className="border border-sky-900 mr-4"
@@ -120,9 +120,9 @@ export const Home = () => {
             />
             <button onClick={() => getStakeAddress(address)}>Enter</button>
           </div>
-          <div className="flex justify-center">or</div>
-          <div className="flex justify-center">Stake Address</div>
-          <div>
+          <div className="text-center">or</div>
+          <div className="text-center">Stake Address</div>
+          <div className="flex justify-center">
             <input
               type="text"
               className="border border-sky-900 mr-4"
@@ -136,17 +136,17 @@ export const Home = () => {
         <BarGraph ada={ada} epoch={epoch} />
       </div>
       {/* Viewing Panels */}
-      <div className="block justify-center text-center ">
+      <div className="block justify-center text-center  max-w-4xl">
         <p>Viewing information for:</p>
-        <div className="bg-white border border-black">
+        <div className="bg-white border border-black max-w-lg md:max-w-4xl">
           {address !== undefined ? address : "Address"}
         </div>
-        <div className="bg-white border border-black">
+        <div className="bg-white border border-black max-w-lg md:max-w-4xl">
           {stakeAddress !== undefined ? stakeAddress : "Stake Address"}
         </div>
       </div>
       {/* Display Table */}
-      <div className="flex justify-center pt-4">
+      <div className="flex justify-center pt-4 text-xs md:text-base">
         <StakeTable
           stakeRewards={stakeRewards}
           value={value}

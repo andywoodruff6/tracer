@@ -13,7 +13,6 @@ export const BarGraph = ({ ada, epoch }) => {
       },
     ],
   };
-
   return (
     <div className="w-[600px]">
       {epoch.length >= 1 ? (
