@@ -8,7 +8,7 @@ export const Home = () => {
   const baseURL = "https://cardano-mainnet.blockfrost.io/api/v0/";
   const [address, setAddress] = useState();
   const [stakeAddress, setStakeAddress] = useState();
-  const [stakeRewards, setStakeRewards] = useState('');
+  const [stakeRewards, setStakeRewards] = useState("");
   const [value, setValue] = useState([]);
   const [pool, setPool] = useState([]);
   const [ada, setAda] = useState([]);
@@ -118,7 +118,12 @@ export const Home = () => {
               placeholder="Address"
               onChange={(e) => setAddress(e.target.value)}
             />
-            <button onClick={() => getStakeAddress(address)}>Enter</button>
+            <button
+              className="bg-green-400 py-1 px-2 rounded"
+              onClick={() => getStakeAddress(address)}
+            >
+              Enter
+            </button>
           </div>
           <div className="text-center">or</div>
           <div className="text-center">Stake Address</div>
@@ -129,11 +134,18 @@ export const Home = () => {
               placeholder="Stake Address"
               onChange={(e) => setStakeAddress(e.target.value)}
             />
-            <button onClick={() => getStakeRewards(stakeAddress)}>Enter</button>
+            <button
+              className="bg-green-400 py-1 px-2 rounded"
+              onClick={() => getStakeRewards(stakeAddress)}
+            >
+              Enter
+            </button>
           </div>
         </div>
         {/* Bar Graph */}
-        <BarGraph ada={ada} epoch={epoch} />
+        <div className="pt-7">
+          <BarGraph ada={ada} epoch={epoch} />
+        </div>
       </div>
       {/* Viewing Panels */}
       <div className="block justify-center text-center  max-w-4xl">
