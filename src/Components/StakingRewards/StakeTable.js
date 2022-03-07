@@ -20,7 +20,6 @@ export const StakeTable = ({ stakeRewards, value, pool, formattedDate }) => {
     </tr>
   ));
   return (
-    <div className="border border-red-500">
       <table className="table-fixed border border-collapse">
         <thead>
           <tr>
@@ -34,6 +33,5 @@ export const StakeTable = ({ stakeRewards, value, pool, formattedDate }) => {
         </thead>
         <tbody>{plotTable}</tbody>
       </table>
-    </div>
   );
 };

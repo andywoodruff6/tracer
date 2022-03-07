@@ -104,12 +104,12 @@ export const Home = () => {
 
   return (
     <div className="block justify-center">
-      <div className="text-xl mt-10 border border-red-500 flex justify-center">
+      <div className="text-xl mt-20 md:mt-10 flex justify-center">
         ADA - TRACER
       </div>
       <div className="block lg:flex lg:justify-between">
         {/* Inputs */}
-        <div className="border border-red-500 p-6 mx-6 my-2">
+        <div className="p-6 md:mx-6 my-2">
           <div className="text-center">Address</div>
           <div className="flex justify-center">
             <input
@@ -136,7 +136,7 @@ export const Home = () => {
         <BarGraph ada={ada} epoch={epoch} />
       </div>
       {/* Viewing Panels */}
-      <div className="block justify-center text-center max-w-4xl ">
+      <div className="block justify-center text-center  max-w-4xl">
         <p>Viewing information for:</p>
         <div className="bg-white border border-black">
           {address !== undefined ? address : "Address"}
@@ -146,7 +146,7 @@ export const Home = () => {
         </div>
       </div>
       {/* Display Table */}
-      <div className="flex justify-center pt-4">
+      <div className="flex justify-center pt-4 text-xs md:text-base">
         <StakeTable
           stakeRewards={stakeRewards}
           value={value}
