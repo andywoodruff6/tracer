@@ -138,10 +138,10 @@ export const Home = () => {
       {/* Viewing Panels */}
       <div className="block justify-center text-center  max-w-4xl">
         <p>Viewing information for:</p>
-        <div className="bg-white border border-black">
+        <div className="bg-white border border-black max-w-lg md:max-w-4xl">
           {address !== undefined ? address : "Address"}
         </div>
-        <div className="bg-white border border-black">
+        <div className="bg-white border border-black max-w-lg md:max-w-4xl">
           {stakeAddress !== undefined ? stakeAddress : "Stake Address"}
         </div>
       </div>

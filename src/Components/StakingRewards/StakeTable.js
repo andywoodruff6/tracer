@@ -20,12 +20,12 @@ export const StakeTable = ({ stakeRewards, value, pool, formattedDate }) => {
     </tr>
   ));
   return (
-      <table className="table-fixed border border-collapse">
+      <table className="table-fixed border border-collapse max-w-lg md:max-w-4xl">
         <thead>
           <tr>
             <th className="border border-black p-1">Epoch</th>
             <th className="border border-black p-1">Date</th>
-            <th className="border border-black p-1 px-6">Amount (Lovelace)</th>
+            <th className="border border-black p-1 md:px-6">Amount (Lovelace)</th>
             <th className="border border-black p-1">Price / Coin</th>
             <th className="border border-black p-1">Value (USD)</th>
             <th className="border border-black p-1">Pool Ticker</th>
