@@ -18,7 +18,7 @@ export const BarGraph = ({ ada, epoch }) => {
       {epoch.length >= 1 ? (
         <Bar data={data} />
       ) : (
-        <div className="text-center pt-20 ">
+        <div className="text-center p-10 border-2 border-black rounded md:pt-20 ">
           Bar Chart Displays After an Address is Selected
         </div>
       )}
