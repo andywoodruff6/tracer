@@ -14,6 +14,8 @@ export const Home = () => {
   const [ada, setAda] = useState([]);
   const [formattedDate, setFormattedDate] = useState([]);
   const [epoch, setEpoch] = useState([]);
+  const [price, setPrice] = useState([]);
+  const [error, setError] = useState();
 
   const getStakeAddress = async (address) => {
     try {
@@ -30,6 +32,7 @@ export const Home = () => {
       setStakeAddress(stakeAddress);
       getStakeRewards(stakeAddress);
     } catch (error) {
+      setError(error.message + " - Invalid Address");
       console.log("getStakeAddress error: ", error);
     }
   };
@@ -46,6 +49,7 @@ export const Home = () => {
           project_id: process.env.REACT_APP_BLOCKFROST_API_KEY,
         },
       });
+      console.log("stakeRewards: ", results.data);
       setStakeRewards(results.data);
     } catch (error) {
       console.log("getStakeRewards error: ", error);
@@ -56,12 +60,32 @@ export const Home = () => {
       const amount = stakeRewards[i].amount;
       const amountInAda = amount / 10 ** 6;
       setAda((prevState) => [...prevState, amountInAda]);
-      const date = new Date(epochDatePrice[i].unixDate * 1000);
-      let formattedDate = date.toString().slice(0, 10);
-      setFormattedDate((prevState) => [...prevState, formattedDate]);
-      let priceOnDateI = epochDatePrice[i].value;
-      let valueAda = Math.round(amountInAda * priceOnDateI * 100) / 100;
-      setValue((prevState) => [...prevState, valueAda]);
+    }
+  };
+  const getFormattedDate = () => {
+    for (let i = 0; i < stakeRewards.length; i++) {
+      const firstRewardEpoch = stakeRewards[0].epoch - 1;
+      if (i + firstRewardEpoch < epochDatePrice.length) {
+        const date = new Date(
+          epochDatePrice[i + firstRewardEpoch].unixDate * 1000
+        );
+        let formattedDate = date.toString().slice(0, 15);
+        // console.log("formattedDate: ", formattedDate);
+        setFormattedDate((prevState) => [...prevState, formattedDate]);
+      }
+    }
+  };
+  const getValue = () => {
+    for (let i = 0; i < stakeRewards.length; i++) {
+      const firstRewardEpoch = stakeRewards[0].epoch - 1;
+      if (i + firstRewardEpoch < epochDatePrice.length) {
+        let priceOnDateI = epochDatePrice[i + firstRewardEpoch].value;
+        setPrice((prevState) => [...prevState, priceOnDateI]);
+        const amount = stakeRewards[i].amount;
+        const amountInAda = amount / 10 ** 6;
+        let valueAda = Math.round(amountInAda * priceOnDateI * 100) / 100;
+        setValue((prevState) => [...prevState, valueAda]);
+      }
     }
   };
   const getPoolTicker = async () => {
@@ -98,6 +122,8 @@ export const Home = () => {
 
   useEffect(() => {
     data();
+    getFormattedDate();
+    getValue();
     getPoolTicker();
     getEpoch();
   }, [stakeRewards]);
@@ -147,6 +173,14 @@ export const Home = () => {
           <BarGraph ada={ada} epoch={epoch} />
         </div>
       </div>
+      {/* Error Panels */}
+      {/* <div> */}
+      {error === undefined ? null : (
+        <div className="p-1 border-2 border-red-500 rounded-lg text-center bg-red-300 font-bold text-lg">
+          {error}
+        </div>
+      )}
+      {/* </div> */}
       {/* Viewing Panels */}
       <div className="my-4 block justify-center text-center  max-w-4xl">
         <p>Viewing information for:</p>
@@ -162,6 +196,7 @@ export const Home = () => {
         <StakeTable
           stakeRewards={stakeRewards}
           value={value}
+          price={price}
           pool={pool}
           formattedDate={formattedDate}
         />
