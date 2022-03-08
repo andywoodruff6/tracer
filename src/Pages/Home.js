@@ -14,6 +14,7 @@ export const Home = () => {
   const [ada, setAda] = useState([]);
   const [formattedDate, setFormattedDate] = useState([]);
   const [epoch, setEpoch] = useState([]);
+  const [price, setPrice] = useState([]);
 
   const getStakeAddress = async (address) => {
     try {
@@ -46,6 +47,7 @@ export const Home = () => {
           project_id: process.env.REACT_APP_BLOCKFROST_API_KEY,
         },
       });
+      console.log("stakeRewards: ", results.data);
       setStakeRewards(results.data);
     } catch (error) {
       console.log("getStakeRewards error: ", error);
@@ -60,19 +62,27 @@ export const Home = () => {
   };
   const getFormattedDate = () => {
     for (let i = 0; i < stakeRewards.length; i++) {
-      const a = stakeRewards[i].epoch - 1;
-      console.log("a", a);
-      const date = new Date(epochDatePrice[a].unixDate * 1000);
-      let formattedDate = date.toString().slice(0, 10);
-      setFormattedDate((prevState) => [...prevState, formattedDate]);
+      const firstRewardEpoch = stakeRewards[0].epoch - 1;
+      if (i + firstRewardEpoch < epochDatePrice.length) {
+        const date = new Date(
+          epochDatePrice[i + firstRewardEpoch].unixDate * 1000
+        );
+        let formattedDate = date.toString().slice(0, 10);
+        setFormattedDate((prevState) => [...prevState, formattedDate]);
+      }
     }
   };
   const getValue = () => {
     for (let i = 0; i < stakeRewards.length; i++) {
-      const a = stakeRewards[i].epoch - 1;
-      let priceOnDateI = epochDatePrice[a].value;
-      let valueAda = Math.round(ada[i] * priceOnDateI * 100) / 100;
-      setValue((prevState) => [...prevState, valueAda]);
+      const firstRewardEpoch = stakeRewards[0].epoch - 1;
+      if (i + firstRewardEpoch < epochDatePrice.length) {
+        let priceOnDateI = epochDatePrice[i + firstRewardEpoch].value;
+        setPrice((prevState) => [...prevState, priceOnDateI]);
+        const amount = stakeRewards[i].amount;
+        const amountInAda = amount / 10 ** 6;
+        let valueAda = Math.round(amountInAda * priceOnDateI * 100) / 100;
+        setValue((prevState) => [...prevState, valueAda]);
+      }
     }
   };
   const getPoolTicker = async () => {
@@ -175,6 +185,7 @@ export const Home = () => {
         <StakeTable
           stakeRewards={stakeRewards}
           value={value}
+          price={price}
           pool={pool}
           formattedDate={formattedDate}
         />
