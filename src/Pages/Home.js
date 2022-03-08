@@ -15,6 +15,7 @@ export const Home = () => {
   const [formattedDate, setFormattedDate] = useState([]);
   const [epoch, setEpoch] = useState([]);
   const [price, setPrice] = useState([]);
+  const [error, setError] = useState();
 
   const getStakeAddress = async (address) => {
     try {
@@ -31,6 +32,7 @@ export const Home = () => {
       setStakeAddress(stakeAddress);
       getStakeRewards(stakeAddress);
     } catch (error) {
+      setError(error.message + " - Invalid Address");
       console.log("getStakeAddress error: ", error);
     }
   };
@@ -171,6 +173,14 @@ export const Home = () => {
           <BarGraph ada={ada} epoch={epoch} />
         </div>
       </div>
+      {/* Error Panels */}
+      {/* <div> */}
+      {error === undefined ? null : (
+        <div className="p-1 border-2 border-red-500 rounded-lg text-center bg-red-300 font-bold text-lg">
+          {error}
+        </div>
+      )}
+      {/* </div> */}
       {/* Viewing Panels */}
       <div className="my-4 block justify-center text-center  max-w-4xl">
         <p>Viewing information for:</p>
