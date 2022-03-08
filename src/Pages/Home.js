@@ -67,7 +67,8 @@ export const Home = () => {
         const date = new Date(
           epochDatePrice[i + firstRewardEpoch].unixDate * 1000
         );
-        let formattedDate = date.toString().slice(0, 10);
+        let formattedDate = date.toString().slice(0, 15);
+        // console.log("formattedDate: ", formattedDate);
         setFormattedDate((prevState) => [...prevState, formattedDate]);
       }
     }
