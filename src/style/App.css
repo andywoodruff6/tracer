@@ -42,3 +42,10 @@
 .read-the-docs {
   color: #888;
 }
+h1 {
+  color: yellow;
+}
+.navbarSoon{
+  border: 1px solid;
+  border-color: aquamarine;
+}
