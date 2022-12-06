@@ -45,11 +45,28 @@
 h1 {
   color: yellow;
 }
-.navbarSoon{
+.navbarSoon {
   border: 1px solid;
   border-color: aquamarine;
 }
 .footerForNow {
   border: 1px solid;
   border-color: aquamarine;
+}
+.button {
+  padding: 6px;
+  margin: 4px;
+}
+.cardanoAddress {
+  padding: 4px;
+  margin-right: 12px;
+  border: 1px solid;
+  border-color: red;
+}
+.error {
+  background-color: red;
+  font-weight: bold;
+  font-size: large;
+  border-radius: 10px;
+  padding: 10px 0px;
 }

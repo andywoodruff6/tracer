@@ -5,12 +5,13 @@ import Cardano from "./pages/cardano";
 import "./style/App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [blockchain, setBlockchain] = useState("cardano");
 
   return (
     <div className="App">
       <Header />
-      <Cardano />
+      {blockchain == "cardano" ? <Cardano /> : null}
+      {/* Add other blockchains here with the same ternary */}
       <Footer />
     </div>
   );
