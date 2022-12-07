@@ -3,9 +3,9 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  border: 1px solid;
-  border-color: red;
-  border-radius: 3px;
+  border: 2px solid black;
+  border-radius: 10px;
+  /* box-shadow: 10px; */
 }
 
 .logo {
@@ -58,6 +58,7 @@ h1 {
   margin: 4px;
 }
 .cardanoAddress {
+  width: 50%;
   padding: 4px;
   margin-right: 12px;
   border: 1px solid;
@@ -69,4 +70,12 @@ h1 {
   font-size: large;
   border-radius: 10px;
   padding: 10px 0px;
+}
+.table {
+  /* background-color: grey; */
+  border: 1px solid;
+}
+.tableHeader {
+  border: 1px solid;
+  padding: 2px 10px;
 }

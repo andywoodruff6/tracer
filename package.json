@@ -1,7 +1,7 @@
 {
   "name": "tracer",
   "private": true,
-  "version": "2.0.2",
+  "version": "2.0.4",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,6 +13,7 @@
     "axios": "^1.2.0",
     "express": "^4.18.2",
     "mongoose": "^6.7.5",
+    "path-browserify": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
